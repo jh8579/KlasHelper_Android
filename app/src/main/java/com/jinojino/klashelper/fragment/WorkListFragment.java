@@ -92,8 +92,9 @@ public class WorkListFragment extends Fragment implements SwipeRefreshLayout.OnR
                         String createTime = workObject.getString("workCreateTime");
                         String finishTime = workObject.getString("workFinishTime");
                         String workTitle = workObject.getString("workTitle");
-                        String workCourse =workObject.getString("workCourse") ;
-                        worklist.add(new Work(1, workCode, workCourse, workTitle, createTime, finishTime, isSubmit, 0, 1, workType));
+                        String workCourse =workObject.getString("workCourse");
+                        int alarm = dbHelper.getAlarmState(workCode);
+                        worklist.add(new Work(1, workCode, workCourse, workTitle, createTime, finishTime, isSubmit, alarm, 1, workType));
                     }
                     // db에 모든 과제 업데이트
                     dbHelper.updateAll(worklist);
@@ -124,6 +125,7 @@ public class WorkListFragment extends Fragment implements SwipeRefreshLayout.OnR
                 // 리스트뷰 참조 및 Adapter달기
                 listview.setAdapter(adapter);
                 ArrayList<Work> noSubmitWorklist = dbHelper.getNoSubmitWork();
+                Log.d("알람", ""+noSubmitWorklist.get(0).getAlarm());
 
                 for(int i=0; i<noSubmitWorklist.size(); i++){
                     adapter.addItem(noSubmitWorklist.get(i));

@@ -21,6 +21,9 @@ import com.jinojino.klashelper.fragment.WorkListFragment;
 
 
 public class MainActivity extends AppCompatActivity implements WorkFragment.OnFragmentInteractionListener, BoardFragment.OnFragmentInteractionListener, LectureFragment.OnFragmentInteractionListener, WorkListFragment.OnFragmentInteractionListener {
+    @Override
+    public void onBackPressed() {
+    }
 
     private TextView mTextMessage;
 
@@ -38,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements WorkFragment.OnFr
                     return true;
                 case R.id.dashboard:
                     replaceFragment(new BoardFragment());
+                    return true;
+                case R.id.customer:
+                    MainActivity.super.onBackPressed();
                     return true;
             }
             return false;

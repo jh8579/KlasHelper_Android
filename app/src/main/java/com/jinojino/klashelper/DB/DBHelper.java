@@ -52,14 +52,10 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteDatabase db1 = getWritableDatabase();
 
-
         db.execSQL("UPDATE Work SET  isAlive=0;");
-
-
         for(int i=0; i<worklist.size(); i++){
             Work temp = worklist.get(i);
-            db1.execSQL(" INSERT OR REPLACE INTO Work VALUES (null, '" +temp.getCodeWork() + "', '" + temp.getNameCoruse() + "', '" + temp.getNameWork() + "', '"+ temp.getDateStart() + "', '"+ temp.getDateFinish() + "', "+ temp.getSubmitFlag() + ", "+ temp.getAlarm() + ", "+ temp.getAlive() + ", "+ temp.getWorkType() + ");");
-
+            db1.execSQL(" INSERT OR REPLACE INTO Work VALUES (null, '" +temp.getCodeWork() + "', '" + temp.getNameCoruse() + "', '" + temp.getNameWork() + "', '"+ temp.getDateStart() + "', '"+ temp.getDateFinish() + "', "+ temp.getSubmitFlag() + ", "+ temp.getAlarm() +", "+ temp.getAlive() + ", "+ temp.getWorkType() + ");");
         }
         db.close();
     }
@@ -69,6 +65,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL("UPDATE Work SET workFinishTime=" + work.getDateFinish() + ", submitFlag=" +work.getSubmitFlag() + ", isAlive= " + work.getAlive() + " WHERE workCode =" + work.getCodeWork() + ";" );
         db.close();
+    }
+
+    public int getAlarmState(String code){
+        SQLiteDatabase db = getReadableDatabase();
+        int result = 0;
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT workAlarm FROM Work WHERE workCode = '" + code +  "';", null);
+        while (cursor.moveToNext()) {
+           result = cursor.getInt(0);
+        }
+        return result;
     }
 
     // 스위치 On/Off

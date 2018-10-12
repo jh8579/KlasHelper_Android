@@ -21,6 +21,7 @@ public class SignInActivity extends AppCompatActivity {
 
     SharedPreferences data;
     SharedPreferences.Editor editor;
+
     DBHelper dbHelper;
     String id="";
     String pw="";
@@ -47,7 +48,7 @@ public class SignInActivity extends AppCompatActivity {
 //            idInput.setText(id);
 //            pwInput.setText(pw);
 //        }
-        if(data.contains("id") || data.contains("pw")){
+        if(data.contains("id") && data.contains("pw")){
             id = data.getString("id","");
             pw = data.getString("pw", "");
             idInput.setText(id);
