@@ -13,7 +13,11 @@ import android.widget.Toast;
 
 import com.jinojino.klashelper.DB.DBHelper;
 import com.jinojino.klashelper.R;
+import com.jinojino.klashelper.Thread.LoginThread;
 import com.jinojino.klashelper.receiver.AlarmReceiver;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -35,20 +39,12 @@ public class SignInActivity extends AppCompatActivity {
         dbHelper= new DBHelper(getApplicationContext(), "Work.db", null, 1);
         data = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        //id 받는 칸
+        //id, pw 받는 칸
         final TextInputEditText idInput = (TextInputEditText) findViewById(R.id.id_input);
-        //pw 받는 칸
         final TextInputEditText pwInput = (TextInputEditText) findViewById(R.id.pw_input);
 
-//        ArrayList<String> userList = dbHelper.getUser();
-//
-//        if(userList.size()>0){
-//            id = userList.get(0);
-//            pw = userList.get(1);
-//            idInput.setText(id);
-//            pwInput.setText(pw);
-//        }
-        if(data.contains("id") && data.contains("pw")){
+        // 로그인 성공한 기록 있으면 그 기록으로 로그인인
+       if(data.contains("id") && data.contains("pw")){
             id = data.getString("id","");
             pw = data.getString("pw", "");
             idInput.setText(id);
@@ -56,51 +52,63 @@ public class SignInActivity extends AppCompatActivity {
 
             msg = "로그인 성공!";
 
+            // 자동으로 메인 액티비티로 넘겨주기
             Intent intent= new Intent(SignInActivity.this, MainActivity.class);
-            Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
             startActivity(intent);
         }
-
+        // 버튼 눌렀을때 동작
         Button loginButton = (Button)findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-//                ArrayList<String> userList = dbHelper.getUser();
-//                if(userList.size()>0){
-//                    id = userList.get(0);
-//                    pw = userList.get(1);
-//                }
-//                else{
-//
-//                }
-
-                if(data.contains("id") || data.contains("pw")){
-                    id = data.getString("id","");
-                    pw = data.getString("pw", "");
-                }
-
+                // edittext에 들어가 있는 정보 불러오기
                 String id_in = idInput.getText().toString();
                 String pw_in = pwInput.getText().toString();
 
-                if(id.compareTo(id_in)==0 && pw.compareTo(pw_in)==0){
-                    msg = "로그인 성공!";
+                // 서버로부터 허용된 로그인인지 확인!
+                LoginThread l = new LoginThread(id_in, pw_in);
+                l.start();
+                try {
+                    l.join();
+                } catch(Exception e) {
+                    e.printStackTrace();
                 }
-                else{
-                    dbHelper.deleteAll();
-                    dbHelper.setUser(id_in, pw_in);
-                    msg = "화면을 내려 과제 목록을 갱신해주세요.";
+                String response = l.getResult();
+                int flag = 0;
+                try {
+                    JSONObject jobject = new JSONObject(response);
+                    String m_status = jobject.getString("status");
+                    flag = jobject.getInt("flag");
+                }catch (JSONException e){
+                    e.printStackTrace();
                 }
+                if(flag == 1){
+                    // 이전 로그인 정보와 같은지 비교
+                    if(id.compareTo(id_in)==0 && pw.compareTo(pw_in)==0){
+                        msg = "로그인 성공!";
+                    }
+                    else{
+                        // 새로운 로그인일때 DB 삭제
+                        dbHelper.deleteAll();
+                        msg = "화면을 내려 과제 목록을 갱신해주세요.";
+                    }
 
-                editor = data.edit();
-                editor.putString("id", idInput.getText().toString());
-                editor.putString("pw", pwInput.getText().toString());
-                editor.commit();
+                    // 성공한 로그인 정보 저장
+                    editor = data.edit();
+                    editor.putString("id", idInput.getText().toString());
+                    editor.putString("pw", pwInput.getText().toString());
+                    editor.commit();
 
-                //다음 화면으로
-                Intent intent= new Intent(SignInActivity.this, MainActivity.class);
-                Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_LONG).show();
-                startActivity(intent);
+                    // 메인 메뉴로 넘겨주기
+                    Intent intent= new Intent(SignInActivity.this, MainActivity.class);
+                    Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_LONG).show();
+                    startActivity(intent);
 
+                }else {
+                    msg = "로그인 실패!";
+                    Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
