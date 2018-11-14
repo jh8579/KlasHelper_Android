@@ -1,7 +1,7 @@
 package com.jinojino.klashelper.Thread;
 
-
 import android.util.Log;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -11,22 +11,18 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-public class LoginThread extends Thread{
+public class PostDetailThread extends Thread{
     String result;
-    String id;
-    String pw;
+    String post_id;
     String json;
-
-
     public void run(){
         try {
             HttpResponse response;
             JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("id", id);
-            jsonObject.accumulate("pw", pw);
+            jsonObject.accumulate("post_id", post_id);
             json = jsonObject.toString();
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("http://ryulth.com:9999/login");
+            HttpPost httpPost = new HttpPost("http://ryulth.com:9999/post_detail/" + post_id);
             httpPost.setEntity(new StringEntity(json, "UTF-8"));
             httpPost.setHeader("Content-Type", "application/json");
             httpPost.setHeader("Accept-Encoding", "application/json");
@@ -43,14 +39,12 @@ public class LoginThread extends Thread{
         }
 
     }
-
     public String getResult(){
         return result;
     }
 
-    public LoginThread(String id, String pw){
-        this.id = id;
-        this.pw = pw;
+    public PostDetailThread(String post_id){
+        this.post_id = post_id;
     }
 
 }

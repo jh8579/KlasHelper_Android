@@ -26,7 +26,7 @@ public class HttpThread extends Thread{
             jsonObject.accumulate("pw", pw);
             json = jsonObject.toString();
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("http://175.195.89.200:9999/get_ass");
+            HttpPost httpPost = new HttpPost("http://ryulth.com:9999/get_ass");
             httpPost.setEntity(new StringEntity(json, "UTF-8"));
             httpPost.setHeader("Content-Type", "application/json");
             httpPost.setHeader("Accept-Encoding", "application/json");
