@@ -17,10 +17,10 @@
         <activity android:name=".activity.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.MainActivity"
             android:label="MainActivity" />
@@ -34,16 +34,15 @@
         <service
             android:name=".service.AlarmService"
             android:enabled="true"
-            android:exported="true"
-            >
-        <intent-filter>
-            <action android:name="com.jinojino.klashelper.START_SERVICE" />
-        </intent-filter>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.jinojino.klashelper.START_SERVICE" />
+            </intent-filter>
         </service>
 
-        <activity android:name=".activity.AlarmSettingActivity">
-
-        </activity>
+        <activity android:name=".activity.AlarmSettingActivity" />
+        <activity android:name=".activity.BoardActivity" />
+        <activity android:name=".activity.PostDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -9,10 +9,25 @@
     android:paddingLeft="@dimen/activity_horizontal_margin">
 
     <!-- TODO: Update blank fragment layout -->
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp">
 
-    <ListView
-        android:id="@+id/listView"
+    </FrameLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="100dp"
+        android:fillViewport="true">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="82dp">
+        </ListView>
+    </ScrollView>
+
+
 
 </RelativeLayout>

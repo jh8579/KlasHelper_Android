@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <!--글 번호-->
+        <TextView
+            android:id="@+id/PostInfo01"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:paddingRight="5dp"
+            android:textColor="#5a1ff22d"
+            android:textAlignment="center" />
+        <!--글 제목-->
+        <TextView
+            android:id="@+id/PostInfo02"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="textStart"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="작성자 : "
+            android:textSize="13dp" />
+        <!--글 작성자-->
+        <TextView
+            android:id="@+id/PostInfo03"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="10dp"
+            android:textSize="13dp" />
+        <!--글 작성시간-->
+        <TextView
+            android:id="@+id/PostInfo04"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:paddingRight="10dp"
+            android:textSize="13dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="조회수 : "
+            android:textSize="13dp" />
+        <!--글 조회수-->
+        <TextView
+            android:id="@+id/PostInfo05"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="조회수 : "
+            android:textSize="13dp" />
+
+    </LinearLayout>
+</LinearLayout>
