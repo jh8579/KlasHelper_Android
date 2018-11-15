@@ -40,9 +40,10 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.AlarmSettingActivity" />
+        <activity android:name=".activity.AlarmSettingActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.BoardActivity" />
-        <activity android:name=".activity.PostDetailActivity"></activity>
+        <activity android:name=".activity.PostDetailActivity" android:windowSoftInputMode="adjustPan"/>
     </application>
+
 
 </manifest>
