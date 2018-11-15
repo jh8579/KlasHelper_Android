@@ -9,23 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-        <!--글 번호-->
+        <!--댓글 번호-->
         <TextView
-            android:id="@+id/PostInfo01"
+            android:id="@+id/comment_num"
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:textSize="18dp"
+            android:textSize="15dp"
             android:paddingRight="5dp"
-            android:textColor="#8A0A12"
-            android:textAlignment="center" />
-        <!--글 제목-->
+            android:textColor="#931e26"
+            android:textAlignment="center"
+            android:text="n"/>
+        <!--댓글 내용-->
         <TextView
-            android:id="@+id/PostInfo02"
+            android:id="@+id/comment_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="textStart"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="글내용"/>
 
     </LinearLayout>
 
@@ -33,40 +35,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-
+        <!--댓글 작성자-->
         <TextView
+            android:id="@+id/comment_author"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="작성자 : "
             android:textSize="13dp" />
-        <!--글 작성자-->
-        <TextView
-            android:id="@+id/PostInfo03"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="10dp"
-            android:textSize="13dp" />
-        <!--글 작성시간-->
-        <TextView
-            android:id="@+id/PostInfo04"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:paddingRight="10dp"
-            android:textSize="13dp" />
 
+        <!--댓글 작성시간-->
         <TextView
+            android:id="@+id/comment_time"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="조회수 : "
-            android:textSize="13dp" />
-        <!--글 조회수-->
-        <TextView
-            android:id="@+id/PostInfo05"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="조회수 : "
-            android:textSize="13dp" />
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:textSize="13dp"
+            android:text="글작성시간"/>
+
 
     </LinearLayout>
 </LinearLayout>

@@ -38,10 +38,10 @@ public class BoardActivity extends AppCompatActivity {
         CurrentStatus.setInstructor(intent.getStringExtra("instructor"));
 
         //PostThread로부터 강의정보 가져오기
-        //PostListThread ht = new PostListThread(CurrentStatus.getClassCode());
+        PostListThread ht = new PostListThread(CurrentStatus.getClassCode());
 
         //test용 클래스 코드
-        PostListThread ht = new PostListThread("SWCON22100");
+        //PostListThread ht = new PostListThread("SWCON22100");
 
         ht.start();
 
@@ -80,18 +80,23 @@ public class BoardActivity extends AppCompatActivity {
         ListView listview = (ListView) findViewById(R.id.listView02);
         listview.setAdapter(adapter);
 
-        for (int i = 0; i < PostList.size(); i++) {
-            adapter.addItem(PostList.get(i));
+        Post Null_Post = new Post("N","생성된 게시물이 없습니다","N/A","N/A","N/A",-1);
+        if(PostList.size() == 0){
+          adapter.addItem(Null_Post);
         }
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent myIntent = new Intent(view.getContext(), PostDetailActivity.class);
-                myIntent.putExtra("post_id", PostList.get(i).getPost_id());
-                // convert to new activity
-                startActivityForResult(myIntent, 0);
+        else {
+            for (int i = 0; i < PostList.size(); i++) {
+                adapter.addItem(PostList.get(i));
             }
-        });
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent myIntent = new Intent(view.getContext(), PostDetailActivity.class);
+                    myIntent.putExtra("post_id", PostList.get(i).getPost_id());
+                    // convert to new activity
+                    startActivityForResult(myIntent, 0);
+                }
+            });
+        }
     }
 }
